@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    
+    <link rel="stylesheet" href="./css/index.css">
+
+    <script defer src="./js/index.js"></script>
+    
+    <link rel="icon" href="/images/메인/favicon.ico">
+    <title>BLACK TAIL</title>
+</head>
+<body>
+<main class="main-container">
+    <h2>2026 상반기 신입사원 채용</h2>
+    <hr class="hr1">
+    <div class="job-summary-card">
+        <div class="summary-item">
+            <span class="label">모집 분야</span>
+            <strong class="value">퇴마 현장 대응<br>(Field Exorcism)</strong>
+        </div>
+        <div class="summary-item">
+            <span class="label">고용 형태</span>
+            <strong class="value">정규직</strong>
+        </div>
+        <div class="summary-item">
+            <span class="label">신입/경력</span>
+            <strong class="value">신입</strong>
+        </div>
+        <div class="summary-item">
+            <span class="label">모집 기간</span>
+            <strong class="value">2026.01.10 ~ 2026.01.31</strong>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-apply" id="applyBtn">지원하기</button>
+        </div>
+    </div>
+
+    <hr class="hr2">
+</main>
+
+<div id="applyModal" class="modal-overlay">
+    <div class="modal-window minimal-modal">
+        <span class="close-area">&times;</span>
+
+        <div class="minimal-header">
+            <h3>지원서 작성</h3>
+            <hr>
+            <p class="main-text">[퇴마 현장 대응] 신입 퇴마사</p>
+        </div>
+
+        <div class="minimal-body">
+            <div class="input-container">
+                <p><span>* </span>이름</p>
+                <input type="text" id="userName" class="underline-input" placeholder="이름을 입력하세요" required>
+            </div>
+            
+            <div class="input-container">
+                <p>지원분야</p>
+                <input type="text" class="underline-input readonly" value="퇴마 현장 대응 (Field Exorcism)" readonly>
+            </div>
+
+            <div class="input-container">
+                <p><span>* </span>이력서 선택</p>
+                <select id="resumeSelect" class="underline-input">
+                    <option value="" disabled selected>제출할 이력서를 선택해주세요.</option>
+                    <option value="standard">열정! 열정! 퇴마사입니다.</option>
+                    <option value="portfolio">실력있는 퇴마사입니다.</option>
+                    <option value="blind">블랙테일산하 졸업생 퇴마사입니다.</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="minimal-footer">
+            <button class="btn-minimal-submit">계속하기</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,316 @@
+/* =========================================
+   0. 폰트
+   ========================================= */
+
+@font-face {
+    font-family: 'Age2g';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2601-6@1.0/에이투지체-4Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Suit';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-display: swap;
+}
+
+/* =========================================
+   1. 메인 레이아웃 & 공통 스타일
+   ========================================= */
+*{
+    font-family: 'Suit';
+}
+
+body{
+    background-color: #000;
+}
+
+/* 메인 컨테이너 설정 */
+.main-container {
+    /* 헤더 공간 확보 */
+    padding-top: 80px; 
+    
+    /* 좌우 여백 및 중앙 정렬 */
+    padding-left: 16px;
+    padding-right: 16px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 내부 문단 간격 공통 설정 */
+.main-container > div {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* 메인 타이틀 */
+.main-container h2 {
+    color: #fff;
+    margin-bottom: 10px;
+    font-family: 'Age2g';
+}
+
+/* 붉은색 구분선 (hr) */
+hr{
+    background: #700915;
+    height: 2px;
+    border: 0;
+}
+
+.hr1 {
+    margin-bottom: 30px;
+}
+
+.hr2 {
+    margin-top: 35px;
+}
+
+/* =========================================
+   2. 채용 요약 카드 (상단 박스)
+   ========================================= */
+.job-summary-card {
+    border: 1px solid #e1e1e1;
+    border-radius: 12px;
+    padding: 30px;
+    background-color: #f1f1f1;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.summary-item {
+    margin-bottom: 20px;
+    background-color: transparent; 
+}
+
+.summary-item .label {
+    display: block;
+    font-size: 14px;
+    color: #525252;
+    margin-bottom: 5px;
+}
+
+.summary-item .value {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+}
+
+/* 지원하기 버튼 그룹 */
+.btn-group {
+    margin-top: 30px;
+}
+
+.btn-apply {
+    width: 100%;
+    padding: 15px;
+    background-color: #000;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-apply:hover {
+    background-color: #333;
+}
+/* =========================================
+   6. 팝업 모달 (지원서 작성 - 다크 테마)
+   ========================================= */
+
+/* 배경 (Overlay) */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* 조금 더 어두운 배경 */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 팝업창 본체 - 다크 테마 적용 */
+.modal-window.minimal-modal {
+    background-color: #1B1B1B;
+    width: 90%;
+    max-width: 380px;
+    border-radius: 5px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* 그림자도 더 진하게 */
+    position: relative;
+    text-align: left;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* 닫기 버튼 (X) - 흰색으로 변경 */
+.close-area {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    color: #fff; /* 흰색 */
+    cursor: pointer;
+    font-weight: lighter;
+    opacity: 0.7; /* 살짝 투명하게 */
+    transition: opacity 0.2s;
+}
+.close-area:hover { opacity: 1; }
+
+/* 타이틀 스타일 - 흰색 글씨 */
+.minimal-header {
+    margin-bottom: 40px;
+    margin-top: 10px;
+}
+
+.minimal-header h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff; /* 흰색 */
+    line-height: 1.3;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.minimal-header p {
+    font-size: 14px;
+    color: #aaa; /* 밝은 회색 */
+    font-weight: normal;
+}
+
+/* 밑줄 입력창 스타일 - 다크 테마 */
+.minimal-body {
+    margin-bottom: 30px;
+}
+
+.minimal-body p {
+    color: #d6d5d5;
+}
+.minimal-body span {
+    color: #700915;
+}
+.input-container {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.underline-input {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 2px solid #444; /* 어두운 회색 밑줄 */
+    background: transparent;
+    font-size: 14px;
+    color: #fff; /* 입력 글씨 흰색 */
+    outline: none;
+    transition: border-bottom 0.3s;
+    border-radius: 0;
+}
+
+/* 플레이스홀더(안내 문구) 색상 조절 */
+.underline-input::placeholder {
+    color: #777; /* 어두운 회색 */
+}
+
+/* 입력창 포커스 시 밑줄 흰색으로 변경 */
+.underline-input:focus {
+    border-bottom: 2px solid #fff;
+}
+
+/* 읽기 전용 필드 */
+.underline-input.readonly {
+    color: #999;
+    border-bottom: 2px solid #333;
+    font-size: 16px;
+    cursor: default;
+}
+
+/* 하단 버튼 - 다크 테마 반전 */
+.btn-minimal-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: transparent; /* 배경 투명 */
+    border: 2px solid #700915;
+    color: #fff; /* 흰색 글씨 */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* 마우스 올리면 흰색 배경으로 반전 */
+.btn-minimal-submit:hover {
+    background-color: #fff;
+    color: #000;
+}
+/* =========================================
+   8. 반응형 (모바일)
+   ========================================= */
+@media (max-width: 600px) {
+    .modal-overlay {
+        padding: 0 !important; /* 부모 여백 제거 (밀림 방지) */
+        display: flex !important; 
+        justify-content: center !important; /* 가로 중앙 강제 */
+        align-items: center !important; /* 세로 중앙 강제 */
+    }
+
+    .modal-window.minimal-modal {
+        /* [핵심] 박스 크기 계산 방식 변경 */
+        box-sizing: border-box !important; 
+        
+        /* 화면의 90%만 차지하게 설정 (좌우 5%씩 자동 여백) */
+        width: 90% !important; 
+        max-width: 400px;
+        
+        /* 중앙 정렬 확실하게 */
+        margin: 0 auto !important; 
+        
+        /* 위아래 잘림 방지 */
+        max-height: 80vh;
+        overflow-y: auto;
+        
+        /* 둥근 모서리 유지 */
+        border-radius: 16px;
+    }
+    
+    /* 닫기 버튼 위치 안전하게 확보 */
+    .close-area {
+        top: 15px;
+        right: 15px;
+    }
+}
+
+/* =========================================
+   [추가] 드롭다운(Select) 전용 스타일
+   ========================================= */
+
+/* 기본 화살표 제거 및 커스텀 디자인 */
+select.underline-input {
+    cursor: pointer;
+    appearance: none; /* 브라우저 기본 스타일 제거 */
+    -webkit-appearance: none; /* 사파리/크롬 호환 */
+    
+    /* 화살표를 흰색으로 커스텀 (SVG 아이콘 사용) */
+    background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 0 center;
+    background-size: 24px; /* 화살표 크기 */
+}
+
+/* 드롭다운을 클릭했을 때 나오는 옵션창 스타일 (다크모드) */
+select.underline-input option {
+    background-color: #1a1a1a; /* 모달 배경색과 동일 */
+    color: #fff;
+    padding: 10px;
+}

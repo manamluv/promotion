@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블랙테일 요원 적성 검사</title>
+    <style>
+        body {
+    background-color: #0b0c10;
+    color: #c5c6c7;
+    font-family: 'Pretendard', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.test-container {
+    background: #1f2833;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+h1 { color: #66fcf1; margin-bottom: 10px; }
+
+.progress-bar {
+    background: #45a29e;
+    height: 8px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+#progress {
+    background: #66fcf1;
+    height: 100%;
+    width: 0%;
+    transition: 0.3s;
+}
+
+.answer-buttons button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background: #0b0c10;
+    color: #66fcf1;
+    border: 2px solid #45a29e;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.answer-buttons button:hover {
+    background: #66fcf1;
+    color: #0b0c10;
+}
+
+#result-title { color: #45a29e; font-size: 2rem; }
+#result-weapon { font-weight: bold; color: #66fcf1; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <section id="start-screen">
+            <h1>BLACK TAIL</h1>
+            <p>신입 요원 적성 검사</p>
+            <button onclick="startTest()">입단 테스트 시작</button>
+        </section>
+
+        <section id="question-screen" style="display:none;">
+            <div class="progress-bar"><div id="progress"></div></div>
+            <h2 id="question-text">질문 내용</h2>
+            <div class="answer-buttons">
+                <button id="answer-a" onclick="selectAnswer('A')">선택지 A</button>
+                <button id="answer-b" onclick="selectAnswer('B')">선택지 B</button>
+            </div>
+        </section>
+
+        <section id="result-screen" style="display:none;">
+            <h2>당신의 보직은...</h2>
+            <h1 id="result-title">요원 유형</h1>
+            <p id="result-weapon">주력 무기: </p>
+            <p id="result-desc">유형 설명</p>
+            <button onclick="location.reload()">다시 테스트하기</button>
+        </section>
+    </div>
+    <script>
+        const questions = [
+    { q: "악령 출몰 제보를 받았다. 당신의 첫 행동은?", type: "EI", a: "동료를 모아 팀을 구성한다", b: "혼자 조용히 장비를 챙긴다" },
+    { q: "퇴마 현장에 구경꾼들이 몰려들기 시작했다.", type: "EI", a: "사람들을 직접 통제한다", b: "결계로 시선을 차단한다" },
+    { q: "고된 업무 뒤 당신의 휴식은?", type: "EI", a: "동료들과 맥주 한 잔", b: "조용히 집에서 혼자 휴식" },
+    { q: "악령의 정체를 파악할 때 믿는 것은?", type: "SN", a: "발자국 등 물리적 증거", b: "서늘한 기운과 직감" },
+    { q: "새 장비를 보급받았다. 당신은?", type: "SN", a: "설명서를 꼼꼼히 읽는다", b: "일단 만져보며 감을 잡는다" },
+    { q: "작전 중 예상치 못한 현상을 마주하면?", type: "SN", a: "보고서에 없던 일이라 당황", b: "흥미로운 새 패턴이라 생각" },
+    { q: "원한 깊은 악령을 마주했다.", type: "TF", a: "가차 없이 소멸시킨다", b: "사연을 들어보고 대화한다" },
+    { q: "동료가 실수로 자책하고 있다면?", type: "TF", a: "다음 보완책을 논의한다", b: "다치지 않아 다행이라 위로" },
+    { q: "당신이 생각하는 이상적인 퇴마는?", type: "TF", a: "피해 없는 효율적 처리", b: "영혼의 한을 풀어주는 성불" },
+    { q: "출발 전 당신의 퇴마 가방은?", type: "JP", a: "완벽히 정리된 부적과 도구", b: "필요할 때 찾는 잡동사니" },
+    { q: "목표지 상황이 예상과 다르다면?", type: "JP", a: "플랜 B를 즉시 가동", b: "현장 상황에 맞춰 즉흥 대응" },
+    { q: "보고서 마감 기한이 다가온다.", type: "JP", a: "이미 미리 써서 제출 완료", b: "벼락치기로 한 번에 해결" }
+];
+
+const results = {
+    ISTJ: { title: "원칙주의 기록관", weapon: "은제 만년필", desc: "과거 사례를 분석해 완벽한 퇴마 절차를 설계합니다." },
+    ISFJ: { title: "성스러운 가디언", weapon: "축복받은 방패", desc: "동료들이 다치지 않게 뒤에서 결계를 치고 보호합니다." },
+    INFJ: { title: "신비로운 예언자", weapon: "수정 펜듈럼", desc: "악령의 다음 이동 경로를 본능적으로 감지합니다." },
+    INTJ: { title: "냉철한 설계자", weapon: "홀로그램 제어기", desc: "악령을 가둘 수 있는 거대한 함정과 시스템을 구축합니다." },
+    ISTP: { title: "병기 전문가", weapon: "영적 에너지 단검", desc: "고장 난 퇴마 도구도 현장에서 뚝딱 고쳐버립니다." },
+    ISFP: { title: "영혼의 예술가", weapon: "령(靈) 브러쉬", desc: "부적을 예술의 경지로 그려내어 영력을 극대화합니다." },
+    INFP: { title: "성불 대사", weapon: "오르골", desc: "가장 사악한 악령의 마음까지 어루만지는 공감 능력을 가졌습니다." },
+    INTP: { title: "심령학자", weapon: "주파수 스캐너", desc: "귀신의 파동과 주파수를 연구해 과학적으로 파괴합니다." },
+    ESTP: { title: "현장의 야생마", weapon: "성수 산탄총", desc: "몸이 먼저 나갑니다. 화끈한 액션으로 악령을 제압합니다." },
+    ESFP: { title: "화려한 엑소시스트", weapon: "발광하는 채찍", desc: "사람들의 시선을 끌며 화려한 퍼포먼스로 악령을 유인합니다." },
+    ENFP: { title: "낙천적인 영매", weapon: "영혼 통신용 무전기", desc: "귀신과 친구가 될 정도로 친화력이 뛰어납니다." },
+    ENTP: { title: "괴짜 발명가", weapon: "고전압 퇴마기", desc: "금기를 깨는 창의적인 퇴마 방식을 즐깁니다." },
+    ESTJ: { title: "철권 지휘관", weapon: "마력 확성기", desc: "일사불란하게 요원들을 배치해 현장을 장악합니다." },
+    ESFJ: { title: "팀 마스코트", weapon: "성유 향수", desc: "요원들의 멘탈을 관리하고 현장 민원을 해결합니다." },
+    ENFJ: { title: "빛의 인도자", weapon: "정화의 지팡이", desc: "모두의 사기를 북돋우며 악령에 맞설 용기를 줍니다." },
+    ENTJ: { title: "총괄 디렉터", weapon: "지휘용 레이저 포인터", desc: "블랙테일의 승리를 위해 거대한 작전판을 움직입니다." }
+};
+
+let currentIdx = 0;
+let score = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+
+function startTest() {
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('question-screen').style.display = 'block';
+    showQuestion();
+}
+
+function showQuestion() {
+    const q = questions[currentIdx];
+    document.getElementById('question-text').innerText = q.q;
+    document.getElementById('answer-a').innerText = q.a;
+    document.getElementById('answer-b').innerText = q.b;
+    document.getElementById('progress').style.width = (currentIdx / questions.length) * 100 + "%";
+}
+
+function selectAnswer(choice) {
+    const type = questions[currentIdx].type;
+    const aType = type[0]; // E, S, T, J
+    const bType = type[1]; // I, N, F, P
+
+    if (choice === 'A') score[aType]++;
+    else score[bType]++;
+
+    currentIdx++;
+    if (currentIdx < questions.length) showQuestion();
+    else showResult();
+}
+
+function showResult() {
+    document.getElementById('question-screen').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+
+    const mbti = 
+        (score.E >= score.I ? "E" : "I") +
+        (score.S >= score.N ? "S" : "N") +
+        (score.T >= score.F ? "T" : "F") +
+        (score.J >= score.P ? "J" : "P");
+
+    const result = results[mbti] || { title: "블랙테일 요원", weapon: "기본 장비", desc: "분석 중인 유형입니다." };
+    document.getElementById('result-title').innerText = result.title;
+    document.getElementById('result-weapon').innerText = "주력 무기: " + result.weapon;
+    document.getElementById('result-desc').innerText = result.desc;
+}
+    </script>
+</body>
+</html>
