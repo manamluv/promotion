@@ -28,78 +28,58 @@ html, body {
 }
 
 body {
-    /* 레이아웃 구조 잡기 */
-    display: flex;
-    flex-direction: column; /* 위에서 아래로 배치 */
-    
-    /* 헤더(.header)가 position: fixed; height: 56px; 이므로
-       헤더에 가려지지 않게 Body 상단에 여백을 줍니다.
-    */
-    padding-top: 56px; 
-}
-
-/* 메인 컨테이너 설정 */
-.main-container {
-    /* 남은 공간 꽉 채우기 */
-    flex: 1; 
-    
-    /* 내부 요소 정중앙 정렬 */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 세로 중앙 */
-    align-items: center;     /* 가로 중앙 */
-
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto; /* 좌우 중앙 정렬 */
-    padding: 0 16px; /* 모바일 좌우 여백 */
-    
-    /* 기존 padding-top: 80px 제거 (Body에서 처리함) */
+    padding-top: 40px; 
 }
 
-/* 내부 문단 간격 */
+
+.main-container {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
 .main-container > div {
     margin-bottom: 20px;
     line-height: 1.6;
-    width: 100%; /* Flex 정렬 시 너비 확보 */
+    width: 100%;
 }
 
-/* 메인 타이틀 */
 .main-container h2 {
     color: #fff;
     margin-bottom: 10px;
     font-family: 'Age2g';
-    text-align: center; /* 타이틀 중앙 정렬 */
+    text-align: center;
 }
 
-/* 붉은색 구분선 (hr) */
 main hr {
     background: #700915;
     height: 2px;
     border: 0;
-    width: 100%; /* 구분선 너비 100% */
+    width: 100%;
 }
 
 .hr1 {
-    margin-bottom: 10px; /* 간격 살짝 축소 */
+    margin-bottom: 10px;
 }
 
-/* 하단 구분선은 화면이 꽉 차면 지저분할 수 있어 숨김 처리 (필요시 display: block) */
 .hr2 {
     display: none; 
 }
 
-/* 푸터 위치 보정 (기존 클래스 활용) */
 footer.custom-footer {
-    /* Flex 아이템으로서 크기 고정 (늘어나지 않음) */
-    flex: 0 0 auto; 
+    flex-shrink: 0;
     width: 100%;
     z-index: 10;
 }
 
-/* =========================================
-   2. 채용 요약 카드 (상단 박스)
-   ========================================= */
 .job-summary-card {
     border: 1px solid #e1e1e1;
     border-radius: 12px;
@@ -129,7 +109,6 @@ footer.custom-footer {
     color: #000;
 }
 
-/* 지원하기 버튼 그룹 */
 .btn-group {
     margin-top: 30px;
 }
@@ -150,30 +129,25 @@ footer.custom-footer {
 .btn-apply:hover {
     background-color: #333;
 }
-/* =========================================
-   6. 팝업 모달 (지원서 작성 - 다크 테마)
-   ========================================= */
 
-/* 배경 (Overlay) */
 .modal-overlay {
     display: none;
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* 조금 더 어두운 배경 */
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 9999;
     justify-content: center;
     align-items: center;
 }
 
-/* 팝업창 본체 - 다크 테마 적용 */
 .modal-window.minimal-modal {
     background-color: #1B1B1B;
     width: 90%;
     max-width: 380px;
     border-radius: 5px;
     padding: 40px 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* 그림자도 더 진하게 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     position: relative;
     text-align: left;
     animation: slideUp 0.3s ease-out;
@@ -184,21 +158,19 @@ footer.custom-footer {
     to { transform: translateY(0); opacity: 1; }
 }
 
-/* 닫기 버튼 (X) - 흰색으로 변경 */
 .close-area {
     position: absolute;
     top: 20px;
     right: 20px;
     font-size: 28px;
-    color: #fff; /* 흰색 */
+    color: #fff;
     cursor: pointer;
     font-weight: lighter;
-    opacity: 0.7; /* 살짝 투명하게 */
+    opacity: 0.7;
     transition: opacity 0.2s;
 }
 .close-area:hover { opacity: 1; }
 
-/* 타이틀 스타일 - 흰색 글씨 */
 .minimal-header {
     margin-bottom: 40px;
     margin-top: 10px;
@@ -207,7 +179,7 @@ footer.custom-footer {
 .minimal-header h3 {
     font-size: 20px;
     font-weight: 700;
-    color: #fff; /* 흰색 */
+    color: #fff;
     line-height: 1.3;
     margin-bottom: 20px;
     letter-spacing: 2px;
@@ -216,11 +188,10 @@ footer.custom-footer {
 
 .minimal-header p {
     font-size: 14px;
-    color: #aaa; /* 밝은 회색 */
+    color: #aaa;
     font-weight: normal;
 }
 
-/* 밑줄 입력창 스타일 - 다크 테마 */
 .minimal-body {
     margin-bottom: 30px;
 }
@@ -240,26 +211,23 @@ footer.custom-footer {
     width: 100%;
     padding: 10px 0;
     border: none;
-    border-bottom: 2px solid #444; /* 어두운 회색 밑줄 */
+    border-bottom: 2px solid #444;
     background: transparent;
     font-size: 14px;
-    color: #fff; /* 입력 글씨 흰색 */
+    color: #fff;
     outline: none;
     transition: border-bottom 0.3s;
     border-radius: 0;
 }
 
-/* 플레이스홀더(안내 문구) 색상 조절 */
 .underline-input::placeholder {
-    color: #777; /* 어두운 회색 */
+    color: #777;
 }
 
-/* 입력창 포커스 시 밑줄 흰색으로 변경 */
 .underline-input:focus {
     border-bottom: 2px solid #fff;
 }
 
-/* 읽기 전용 필드 */
 .underline-input.readonly {
     color: #999;
     border-bottom: 2px solid #333;
@@ -267,13 +235,12 @@ footer.custom-footer {
     cursor: default;
 }
 
-/* 하단 버튼 - 다크 테마 반전 */
 .btn-minimal-submit {
     width: 100%;
     padding: 15px;
-    background-color: #700915; /* 배경 투명 */
+    background-color: #700915;
     border: 2px solid #700915;
-    color: #fff; /* 흰색 글씨 */
+    color: #fff;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
@@ -291,13 +258,11 @@ footer.custom-footer {
             gap: 12px;
             margin-bottom: 30px;
         }
-        .step { font-size: 0.75rem; color: #444; font-weight: bold; }
-        .step.active { color: #700915; }
-        .step.complete { color: #888; }
 
-/* =========================================
-   8. 반응형 (모바일)
-   ========================================= */
+.step { font-size: 0.75rem; color: #444; font-weight: bold; }
+.step.active { color: #700915; }
+.step.complete { color: #888; }
+
 @media (max-width: 600px) {
     .modal-overlay {
         padding: 0 !important; 
@@ -321,75 +286,57 @@ footer.custom-footer {
     }
 }
 
-/* =========================================
-   [추가] 드롭다운(Select) 전용 스타일
-   ========================================= */
-
-/* 기본 화살표 제거 및 커스텀 디자인 */
 select.underline-input {
     cursor: pointer;
-    appearance: none; /* 브라우저 기본 스타일 제거 */
-    -webkit-appearance: none; /* 사파리/크롬 호환 */
+    appearance: none;
+    -webkit-appearance: none;
     
-    /* 화살표를 흰색으로 커스텀 (SVG 아이콘 사용) */
     background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 0 center;
-    background-size: 24px; /* 화살표 크기 */
+    background-size: 24px;
 }
 
-/* 드롭다운을 클릭했을 때 나오는 옵션창 스타일 (다크모드) */
 select.underline-input option {
-    background-color: #1a1a1a; /* 모달 배경색과 동일 */
+    background-color: #1a1a1a;
     color: #fff;
     padding: 10px;
 }
-
-/* =========================================
-   [추가] 동의 체크박스 커스텀 스타일
-   ========================================= */
 
 .agree-container {
     margin-top: 20px;
     margin-bottom: 10px;
 }
 
-/* 1. 실제 체크박스는 숨김 */
 input[type="checkbox"]#agreeCheck {
     display: none;
 }
 
-/* 2. 라벨 스타일 (체크 안 했을 때: 회색) */
 input[type="checkbox"]#agreeCheck + label {
     cursor: pointer;
     display: flex;
     align-items: center;
     font-size: 14px;
-    color: #777; /* 회색 텍스트 */
+    color: #777;
     transition: color 0.3s;
 }
 
-/* 3. 체크박스 네모 칸 (체크 안 했을 때: 회색 테두리) */
 input[type="checkbox"]#agreeCheck + label::before {
     content: '';
     display: inline-block;
     width: 18px;
     height: 18px;
-    border: 2px solid #777; /* 회색 테두리 */
+    border: 2px solid #777;
     margin-right: 10px;
     transition: all 0.3s;
     box-sizing: border-box;
 }
 
-/* 4. 라벨 스타일 (체크 했을 때: 흰색) */
 input[type="checkbox"]#agreeCheck:checked + label {
-    color: #fff; /* 흰색 텍스트 */
+    color: #fff;
 }
 
-/* 5. 체크박스 네모 칸 (체크 했을 때: 흰색 채움 + 체크 표시) */
 input[type="checkbox"]#agreeCheck:checked + label::before {
     border-color: #fff;
-    background-color: #fff; /* 흰색 배경 */
-    
-    /* V자 체크 표시 (SVG 활용) */
+    background-color: #fff;
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
     background-position: center;
     background-size: 16px;

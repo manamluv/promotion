@@ -18,7 +18,7 @@
 
         :root {
             --primary-red: #700915;
-            --bg-black: #0a0a0a;
+            --bg-black: #1B1B1B;
             --card-bg: #111111;
             --border-color: #2a2a2a;
             --text-gray: #888;
@@ -277,6 +277,8 @@
             document.getElementById('result-screen').style.display = 'block';
             document.getElementById('progress').style.width = "100%";
 
+            document.getElementById('status-text').style.display = 'none';
+            
             const mbti = 
                 (score.E >= score.I ? "E" : "I") +
                 (score.S >= score.N ? "S" : "N") +
