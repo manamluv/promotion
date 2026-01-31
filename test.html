@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACK TAIL | 전문 퇴마사 적성 검증</title>
+    <title>BLACK TAIL | 전문 퇴마사 적성 검사</title>
     <style>
         @font-face {
             font-family: 'Suit';
@@ -11,6 +11,13 @@
             font-weight: normal;
             font-display: swap;
         }
+
+        @font-face {
+            font-family: 'HeirofLightBold';
+            src: url('../font/HeirofLightBold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            }
 
         *{
             font-family: 'Suit', sans-serif; 
@@ -68,11 +75,31 @@
             text-transform: uppercase;
         }
 
-        h1 { font-size: 1.8rem; margin: 0 0 10px 0; font-weight: 800; letter-spacing: 1.5px; }
-        .subtitle { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 30px; }
+        h1 { 
+            font-family: 'HeirofLightBold'; 
+            font-size: 1.8rem; 
+            margin: 0 0 10px 0; 
+            font-weight: 800; 
+            letter-spacing: 1.5px; 
+        }
 
-        .progress-container { margin-bottom: 40px; }
-        .progress-bar { background: #222; height: 4px; border-radius: 2px; width: 100%; }
+        .subtitle { 
+            color: var(--text-gray); 
+            font-size: 0.9rem; 
+            margin-bottom: 10px; 
+        }
+
+        .progress-container { 
+            margin-bottom: 40px; 
+        }
+
+        .progress-bar { 
+            background: #222; 
+            height: 4px; 
+            border-radius: 2px; 
+            width: 100%; 
+        }
+
         #progress {
             background: #700915;
             height: 100%;
@@ -121,9 +148,30 @@
             transform: scale(0.98);
         }
 
-        #result-title { color: #700915; font-size: 2.2rem; margin: 10px 0; font-weight: 900; }
-        #result-weapon { font-size: 0.9rem; color: #fff; background: #222; display: inline-block; padding: 5px 12px; margin-bottom: 20px; border-radius: 2px; font-weight: bold; }
-        #result-desc { color: var(--text-gray); line-height: 1.7; font-size: 0.95rem; margin-bottom: 30px; word-break: keep-all; }
+        #result-title { 
+            color: #700915; 
+            font-size: 2.2rem; 
+            font-weight: 900; 
+        }
+
+        #result-weapon { 
+            font-size: 0.9rem; 
+            color: #fff; 
+            background: #222; 
+            display: inline-block; 
+            padding: 5px 12px; 
+            margin-bottom: 20px; 
+            border-radius: 2px; 
+            font-weight: bold; 
+        }
+
+        #result-desc { 
+            color: var(--text-gray); 
+            line-height: 1.7; 
+            font-size: 0.95rem; 
+            margin-bottom: 30px; 
+            word-break: keep-all; 
+        }
 
         .btn-action {
             background: #700915;
@@ -138,7 +186,10 @@
             transition: 0.3s;
         }
 
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        .fade-in { 
+            animation: fadeIn 0.4s ease-out forwards; 
+        }
+        
         @keyframes fadeIn { 
             from { opacity: 0; transform: translateY(10px); } 
             to { opacity: 1; transform: translateY(0); } 
@@ -151,8 +202,8 @@
 
         <section id="start-screen">
             <h1>BLACK TAIL</h1>
-            <p class="subtitle">신입 퇴마사 적성 검증 시스템</p>
-            <button class="btn-action" onclick="startTest()">검증 프로세스 시작</button>
+            <p class="subtitle">신입 퇴마사 적성 검사 시스템</p>
+            <button class="btn-action" onclick="startTest()">검사 프로세스 시작</button>
         </section>
 
         <section id="question-screen" style="display:none;">
@@ -170,15 +221,18 @@
 
         <section id="result-screen" style="display:none;" class="fade-in">
             <p class="system-header">Verification Complete</p>
-            <p class="subtitle">분석 결과, 당신은</p>
+            <p class="subtitle">분석 결과, <span id="displayName"></span>님은</p>
             <h1 id="result-title">퇴마사 유형</h1>
             <div id="result-weapon">주력 영구(靈具): </div>
             <p id="result-desc">유형 설명</p>
-            <button class="btn-action" onclick="onon()">적성검사 완료</button>
+            <button class="btn-action" onclick="onon()">최종지원하기</button>
         </section>
     </div>
 
     <script>
+        const savedName = sessionStorage.getItem("applyName");
+        document.getElementById("displayName").innerText = savedName;
+
         // 질문 및 결과 데이터 (동일)
         const questions = [
             { q: "악령 출몰 제보를 받았다. 당신의 첫 행동은?", type: "EI", a: "동료들을 소집해 합동 퇴마팀을 구성한다.", b: "혼자 은밀하게 현장에 잠입해 동태를 살핀다." },
@@ -204,7 +258,7 @@
             ISFP: { title: "영혼의 화가", weapon: "영력 브러쉬", desc: "부적 한 장에도 예술적인 영력을 담아내 시각적으로 압도하는 힘을 발휘합니다." },
             INFP: { title: "성불의 인도자", weapon: "정화의 오르골", desc: "가장 사악한 영혼의 마음까지 어루만지는 깊은 공감 능력을 지닌 구도자입니다." },
             INTP: { title: "심령 분석가", weapon: "주파수 스캐너", desc: "귀신의 파동을 과학적으로 분석해 존재 자체를 무효화하는 효율적인 천재입니다." },
-            ESTP: { title: "현장의 파괴자", weapon: "성수 산탄총", desc: "팀장님 퇴마사처럼 몸이 먼저 나갑니다. 압도적인 액션으로 악령을 정면 돌파합니다." },
+            ESTP: { title: "현장의 파괴자", weapon: "성수 산탄총", desc: "블랙테일의 대표퇴마사처럼 몸이 먼저 나갑니다. 압도적인 액션으로 악령을 정면 돌파합니다." },
             ESFP: { title: "광휘의 퇴마사", weapon: "발광하는 채찍", desc: "자신에게 시선을 집중시켜 악령을 유인하고 화려한 퍼포먼스로 현장을 장악합니다." },
             ENFP: { title: "자유로운 영매", weapon: "영혼 통신 무전기", desc: "귀신조차 친구로 만드는 특유의 친화력으로 예상치 못한 변수를 만들어냅니다." },
             ENTP: { title: "괴짜 술사", weapon: "고전압 퇴마 장치", desc: "금기시되는 퇴마 방식을 실험적으로 도입해 누구도 생각지 못한 해결책을 냅니다." },

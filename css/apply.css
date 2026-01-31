@@ -342,3 +342,13 @@ input[type="checkbox"]#agreeCheck:checked + label::before {
     background-size: 16px;
     background-repeat: no-repeat;
 }
+
+.small-gong{
+    color: #686767;
+    font-size: 13px;
+}
+
+.small-gong2{
+    color: #999797 !important;
+    font-size: 12px;
+}
