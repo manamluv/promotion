@@ -22,7 +22,7 @@ html, body {
     height: 100dvh; 
     margin: 0 auto;
     padding: 0;
-    overflow: hidden; 
+    /* overflow: hidden; */
     background-color: #000;
 }
 
