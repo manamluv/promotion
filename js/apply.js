@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitBtn = document.querySelector(".btn-minimal-submit");
     const nameInput = document.getElementById("userName");
     const agreeCheck = document.getElementById("agreeCheck");
-
+    const resumeSelect = document.getElementById("resumeSelect");
+    
     window.addEventListener("pageshow", (event) => {
         sessionStorage.removeItem("applyName");
         sessionStorage.removeItem("resumeType");
