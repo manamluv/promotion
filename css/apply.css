@@ -1,3 +1,6 @@
+/* =========================================
+   1. Fonts & Global Reset
+   ========================================= */
 @font-face {
     font-family: 'Age2g';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2601-6@1.0/에이투지체-4Regular.woff2') format('woff2');
@@ -14,16 +17,16 @@
 
 * {
     font-family: 'Suit', sans-serif;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 html, body {
-    max-width: 480px;
-    margin: 0 auto;
-    min-height: 100vh;
-    padding: 0;
     width: 100%;
     height: 100dvh;
+    max-width: 480px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 0;
     overflow: hidden;
     background-color: #000;
 }
@@ -31,12 +34,14 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    padding-top: 40px; 
+    padding-top: 40px;
 }
 
-
+/* =========================================
+   2. Layout & Main Container
+   ========================================= */
 .main-container {
-    flex: 1; 
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,9 +53,9 @@ body {
 }
 
 .main-container > div {
+    width: 100%;
     margin-bottom: 20px;
     line-height: 1.6;
-    width: 100%;
 }
 
 .main-container h2 {
@@ -60,6 +65,7 @@ body {
     text-align: center;
 }
 
+/* Separators */
 main hr {
     background: #700915;
     height: 2px;
@@ -67,20 +73,19 @@ main hr {
     width: 100%;
 }
 
-.hr1 {
-    margin-bottom: 10px;
-}
+.hr1 { margin-bottom: 10px; }
+.hr2 { display: none; }
 
-.hr2 {
-    display: none; 
-}
-
+/* Footer Wrapper */
 footer.custom-footer {
     flex-shrink: 0;
     width: 100%;
     z-index: 10;
 }
 
+/* =========================================
+   3. Job Summary Card
+   ========================================= */
 .job-summary-card {
     border: 1px solid #e1e1e1;
     border-radius: 12px;
@@ -93,7 +98,7 @@ footer.custom-footer {
 
 .summary-item {
     margin-bottom: 20px;
-    background-color: transparent; 
+    background-color: transparent;
 }
 
 .summary-item .label {
@@ -110,6 +115,12 @@ footer.custom-footer {
     color: #000;
 }
 
+.small-gong {
+    color: #686767;
+    font-size: 13px;
+}
+
+/* Apply Button */
 .btn-group {
     margin-top: 30px;
 }
@@ -131,6 +142,9 @@ footer.custom-footer {
     background-color: #333;
 }
 
+/* =========================================
+   4. Modal System
+   ========================================= */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -170,8 +184,10 @@ footer.custom-footer {
     opacity: 0.7;
     transition: opacity 0.2s;
 }
+
 .close-area:hover { opacity: 1; }
 
+/* Modal Header */
 .minimal-header {
     margin-bottom: 40px;
     margin-top: 10px;
@@ -193,16 +209,29 @@ footer.custom-footer {
     font-weight: normal;
 }
 
-.minimal-body {
+.hrhr1 {
+    border: 1px solid #700915;
+}
+
+/* Steps Indicator */
+.step-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
     margin-bottom: 30px;
 }
 
-.minimal-body p {
-    color: #d6d5d5;
-}
-.minimal-body span {
-    color: #700915;
-}
+.step { font-size: 0.75rem; color: #444; font-weight: bold; }
+.step.active { color: #700915; }
+.step.complete { color: #888; }
+
+/* Modal Body */
+.minimal-body { margin-bottom: 30px; }
+.minimal-body p { color: #d6d5d5; }
+.minimal-body span { color: #700915; }
+.small-gong2 { color: #999797 !important; font-size: 12px; }
+
+/* Inputs */
 .input-container {
     margin-bottom: 25px;
     position: relative;
@@ -221,13 +250,8 @@ footer.custom-footer {
     border-radius: 0;
 }
 
-.underline-input::placeholder {
-    color: #777;
-}
-
-.underline-input:focus {
-    border-bottom: 2px solid #fff;
-}
+.underline-input::placeholder { color: #777; }
+.underline-input:focus { border-bottom: 2px solid #fff; }
 
 .underline-input.readonly {
     color: #999;
@@ -236,62 +260,11 @@ footer.custom-footer {
     cursor: default;
 }
 
-.btn-minimal-submit {
-    width: 100%;
-    padding: 15px;
-    background-color: #700915;
-    border: 2px solid #700915;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s;
-    border-radius: 4px;
-}
-
-.hrhr1 {
-    border: 1px solid #700915
-}
-
-.step-container {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-
-.step { font-size: 0.75rem; color: #444; font-weight: bold; }
-.step.active { color: #700915; }
-.step.complete { color: #888; }
-
-@media (max-width: 600px) {
-    .modal-overlay {
-        padding: 0 !important; 
-        justify-content: center !important; 
-        align-items: center !important; 
-    }
-
-    .modal-window.minimal-modal {
-        box-sizing: border-box !important; 
-        width: 90% !important; 
-        max-width: 400px;
-        margin: 0 auto !important; 
-        max-height: 80vh;
-        overflow-y: auto;
-        border-radius: 16px;
-    }
-    
-    .close-area {
-        top: 15px;
-        right: 15px;
-    }
-}
-
+/* Custom Select */
 select.underline-input {
     cursor: pointer;
     appearance: none;
     -webkit-appearance: none;
-    
     background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 0 center;
     background-size: 24px;
 }
@@ -302,14 +275,13 @@ select.underline-input option {
     padding: 10px;
 }
 
+/* Custom Checkbox */
 .agree-container {
     margin-top: 20px;
     margin-bottom: 10px;
 }
 
-input[type="checkbox"]#agreeCheck {
-    display: none;
-}
+input[type="checkbox"]#agreeCheck { display: none; }
 
 input[type="checkbox"]#agreeCheck + label {
     cursor: pointer;
@@ -331,9 +303,7 @@ input[type="checkbox"]#agreeCheck + label::before {
     box-sizing: border-box;
 }
 
-input[type="checkbox"]#agreeCheck:checked + label {
-    color: #fff;
-}
+input[type="checkbox"]#agreeCheck:checked + label { color: #fff; }
 
 input[type="checkbox"]#agreeCheck:checked + label::before {
     border-color: #fff;
@@ -344,12 +314,42 @@ input[type="checkbox"]#agreeCheck:checked + label::before {
     background-repeat: no-repeat;
 }
 
-.small-gong{
-    color: #686767;
-    font-size: 13px;
+/* Submit Button */
+.btn-minimal-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: #700915;
+    border: 2px solid #700915;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 4px;
 }
 
-.small-gong2{
-    color: #999797 !important;
-    font-size: 12px;
+/* =========================================
+   5. Media Queries
+   ========================================= */
+@media (max-width: 600px) {
+    .modal-overlay {
+        padding: 0 !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    .modal-window.minimal-modal {
+        box-sizing: border-box !important;
+        width: 90% !important;
+        max-width: 400px;
+        margin: 0 auto !important;
+        max-height: 80vh;
+        overflow-y: auto;
+        border-radius: 16px;
+    }
+
+    .close-area {
+        top: 15px;
+        right: 15px;
+    }
 }
