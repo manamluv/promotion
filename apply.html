@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./css/apply.css">
+    <link rel="stylesheet" href="./css/hf.css">
+
+    <script defer src="./js/apply.js"></script>
+    
+    <title>BLACK TAIL</title>
+</head>
+<body>
+    <header class="header">
+        <a href="./blacktail.html">
+            <img src="./images/BT 국영문 로고 수정 화이트.png" class="logo-home">
+        </a>
+        
+        <button class="menu-btn" aria-label="menu">
+            <i class="hamburger"></i>
+        </button>
+    </header>
+<main class="main-container">
+    <h2>2026 상반기 신입사원 채용</h2>
+    <hr class="hr1">
+    <div class="job-summary-card">
+        <div class="summary-item">
+            <span class="label">모집 분야</span>
+            <strong class="value">퇴마 현장 대응<br>(Field Exorcism)</strong>
+        </div>
+        <div class="summary-item">
+            <span class="label">고용 형태</span>
+            <strong class="value">정규직</strong>
+        </div>
+        <div class="summary-item">
+            <span class="label">신입/경력</span>
+            <strong class="value">신입</strong>
+        </div>
+        <div class="summary-item">
+            <span class="label">모집 기간</span>
+            <strong class="value">2026.02.01 ~ 2026.02.08</strong>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-apply" id="applyBtn">지원하기</button>
+        </div>
+    </div>
+
+    <hr class="hr2">
+</main>
+
+<div id="applyModal" class="modal-overlay">
+    <div class="modal-window minimal-modal">
+        <span class="close-area">&times;</span>
+
+        <div class="minimal-header">
+            <h3>지원서 작성</h3>
+            <hr class="hrhr1">
+            <div class="step-container">
+            <span class="step active">STEP 01 서류접수 ●</span>
+            <span class="step complete">STEP 02 검증</span>
+        </div>
+        </div>
+
+        <div class="minimal-body">
+            <div class="input-container">
+                <p><span>* </span>이름</p>
+                <input type="text" id="userName" class="underline-input" placeholder="이름을 입력하세요" required>
+            </div>
+            
+            <div class="input-container">
+                <p>지원분야</p>
+                <input type="text" class="underline-input readonly" value="퇴마 현장 대응 (Field Exorcism)" readonly>
+            </div>
+
+            <div class="input-container">
+                <p><span>* </span>이력서 선택</p>
+                <select id="resumeSelect" class="underline-input">
+                    <option value="" disabled selected>제출할 이력서를 선택해주세요.</option>
+                    <option value="standard">작두칼사용 연락바람.</option>
+                    <option value="portfolio">도베르만 수인입니다.</option>
+                    <option value="blind">블랙테일산하 졸업생 퇴마사입니다.</option>
+                </select>
+            </div>
+
+            <div class="agree-container">
+    <input type="checkbox" id="agreeCheck">
+    <label for="agreeCheck">지원을 동의합니다.</label>
+</div>
+        </div>
+
+        <div class="minimal-footer">
+            <button class="btn-minimal-submit">제출하기</button>
+        </div>
+    </div>
+</div>
+<footer class="custom-footer">
+    <div class="footer-container">
+        <hr class="top-line">
+
+        <div class="upper-area">
+            <div class="logo-box">
+                <img src="images/작은흰로고.png" alt="Footer Photo" class="logo-img">
+            </div>
+            <div class="info-box">
+                <p class= "footer-main-title">BLACK TAIL</p>
+                <p class= "footer-sub-text">서울특별시 종로구 흑미로 6길 18, <br>블랙테일 본관</p>
+                <p class= "footer-sub-text">Tel : 02) 044-1222</p>
+            </div>
+        </div>
+
+        <div class="bottom-area">
+            <p class="copyright">©Black Tail. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACK TAIL | 지원 완료</title>
+    <style>
+        @font-face {
+            font-family: 'Suit';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --primary-red: #700915;
+            --bg-black: #0a0a0a;
+            --card-bg: #111111;
+            --text-gray: #a0a0a0;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* height 대신 min-height 사용 */
+            margin: 0;
+            font-family: 'Suit', -apple-system, sans-serif;
+            background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
+            background-size: 25px 25px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 50px 30px;
+            border-radius: 2px;
+            border: 1px solid #222;
+            text-align: center;
+            max-width: 400px;
+            width: 85%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            position: relative;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* 상단 레드 라인 강조 */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -1px; left: -1px; width: calc(100% + 2px); height: 4px;
+            background: var(--primary-red);
+            box-shadow: 0 2px 10px rgba(179, 0, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-img {
+            width: 60px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 8px rgba(179, 0, 0, 0.2));
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border: 1px solid var(--primary-red);
+            color: var(--primary-red);
+            font-size: 0.7rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 0 0 8px 0;
+            font-weight: 800;
+        }
+
+        .step-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .step { font-size: 0.75rem; color: #444; font-weight: bold; }
+        .step.active { color: #700915; }
+        .step.complete { color: #888; }
+
+        .result-text {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            word-break: keep-all; /* 한글 줄바꿈 자연스럽게 */
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: bold;
+            box-shadow: inset 0 -1px 0 var(--primary-red);
+        }
+
+        .info-group {
+            background: #0d0d0d;
+            padding: 15px;
+            border: 1px solid #1a1a1a;
+            margin-bottom: 30px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+        .info-label { color: #555; font-weight: bold; letter-spacing: 1px; }
+        .info-value { color: #ccc; font-family: 'Courier New', monospace; }
+
+        .btn-detail {
+            display: block;
+            background-color: #700915;
+            color: #fff;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-detail:active {
+            transform: scale(0.98);
+            filter: brightness(1.2);
+        }
+
+        /* 모바일용 반응형 미디어 쿼리 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 40px 20px;
+                width: 80%;
+            }
+            h2 { font-size: 1.3rem; }
+            .result-text { font-size: 0.85rem; }
+            .logo-img { width: 50px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="images/ghost.png" alt="Black Tail Logo" class="logo-img">
+        
+        <h2>서류 접수 완료</h2>
+        
+        <div class="step-container">
+            <span class="step complete">STEP 01 완료</span>
+            <span class="step active">STEP 02 검증 ●</span>
+        </div>
+
+        <p class="result-text">
+            <span id="displayName" class="highlight"></span> 지원자님,<br>
+            블랙테일 서류지원이 완료되었습니다.<br>
+            <strong>최종 합격을 위해 아래 적성 검증을 진행해주세요.</strong>
+        </p>
+
+        <div class="info-group">
+            <div class="info-row">
+                <span class="info-label">COMPLETE TIME</span>
+                <span class="info-value" id="date"></span>
+            </div>
+        </div>
+
+        <a href="test.html" class="btn btn-detail">적성 검증 시작하기</a>
+    </div>
+
+    <script>
+        const savedName = sessionStorage.getItem("applyName");
+        document.getElementById("displayName").innerText = savedName;
+
+        const now = new Date();
+        const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
+        const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        document.getElementById("date").innerText = `${dateStr} ${timeStr}_KST`;
+    </script>
+</body>
+</html>

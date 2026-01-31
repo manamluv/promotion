@@ -3,173 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>블랙테일 요원 적성 검사</title>
+    <title>BLACK TAIL | 전문 퇴마사 적성 검증</title>
     <style>
+        @font-face {
+            font-family: 'Suit';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-display: swap;
+        }
+
+        *{
+            font-family: 'Suit', sans-serif; 
+        }
+
+        :root {
+            --primary-red: #700915;
+            --bg-black: #0a0a0a;
+            --card-bg: #111111;
+            --border-color: #2a2a2a;
+            --text-gray: #888;
+        }
+
         body {
-    background-color: #0b0c10;
-    color: #c5c6c7;
-    font-family: 'Pretendard', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+            background-color: var(--bg-black);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
+            background-size: 30px 30px;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-.test-container {
-    background: #1f2833;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    text-align: center;
-    width: 90%;
-    max-width: 500px;
-}
+        .test-container {
+            background: var(--card-bg);
+            padding: 50px 30px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            box-sizing: border-box;
+        }
 
-h1 { color: #66fcf1; margin-bottom: 10px; }
+        .test-container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: #700915;
+            box-shadow: 0 0 10px #700915;
+        }
 
-.progress-bar {
-    background: #45a29e;
-    height: 8px;
-    border-radius: 5px;
-    margin-bottom: 30px;
-}
+        .system-header {
+            font-size: 0.7rem;
+            color: #700915;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
 
-#progress {
-    background: #66fcf1;
-    height: 100%;
-    width: 0%;
-    transition: 0.3s;
-}
+        h1 { font-size: 1.8rem; margin: 0 0 10px 0; font-weight: 800; letter-spacing: -1px; }
+        .subtitle { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 30px; }
 
-.answer-buttons button {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    margin: 10px 0;
-    background: #0b0c10;
-    color: #66fcf1;
-    border: 2px solid #45a29e;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.3s;
-}
+        .progress-container { margin-bottom: 40px; }
+        .progress-bar { background: #222; height: 4px; border-radius: 2px; width: 100%; }
+        #progress {
+            background: #700915;
+            height: 100%;
+            width: 0%;
+            transition: 0.4s ease-out;
+            box-shadow: 0 0 10px #700915;
+        }
 
-.answer-buttons button:hover {
-    background: #66fcf1;
-    color: #0b0c10;
-}
+        #question-text {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            min-height: 3.5em;
+            word-break: keep-all;
+            font-weight: 600;
+        }
 
-#result-title { color: #45a29e; font-size: 2rem; }
-#result-weapon { font-weight: bold; color: #66fcf1; }
+        .answer-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .answer-buttons button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: transparent;
+            color: #eee;
+            border: 1px solid #333;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-align: center;
+            font-family: 'Suit', sans-serif;
+            outline: none;
+        }
+
+        /* 호버 효과 (PC 전용) */
+        @media (hover: hover) {
+            .answer-buttons button:hover {
+                border-color: #700915;
+                background: rgba(179, 0, 0, 0.05);
+            }
+        }
+
+        /* [핵심] 선택되었을 때의 스타일 */
+        .answer-buttons button.selected {
+            background: #700915 !important;
+            color: #fff !important;
+            border-color: #700915 !important;
+            box-shadow: 0 0 20px rgba(179, 0, 0, 0.4);
+            transform: scale(0.98);
+        }
+
+        #result-title { color: #700915; font-size: 2.2rem; margin: 10px 0; font-weight: 900; }
+        #result-weapon { font-size: 0.9rem; color: #fff; background: #222; display: inline-block; padding: 5px 12px; margin-bottom: 20px; border-radius: 2px; font-weight: bold; }
+        #result-desc { color: var(--text-gray); line-height: 1.7; font-size: 0.95rem; margin-bottom: 30px; word-break: keep-all; }
+
+        .btn-action {
+            background: #700915;
+            color: #fff;
+            border: none;
+            padding: 18px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
     </style>
 </head>
 <body>
     <div class="test-container">
+        <div id="status-text" class="system-header">Spiritual Syncing...</div>
+
         <section id="start-screen">
             <h1>BLACK TAIL</h1>
-            <p>신입 요원 적성 검사</p>
-            <button onclick="startTest()">입단 테스트 시작</button>
+            <p class="subtitle">신입 퇴마사 적성 검증 시스템</p>
+            <button class="btn-action" onclick="startTest()">검증 프로세스 시작</button>
         </section>
 
         <section id="question-screen" style="display:none;">
-            <div class="progress-bar"><div id="progress"></div></div>
-            <h2 id="question-text">질문 내용</h2>
-            <div class="answer-buttons">
-                <button id="answer-a" onclick="selectAnswer('A')">선택지 A</button>
-                <button id="answer-b" onclick="selectAnswer('B')">선택지 B</button>
+            <div class="progress-container">
+                <div class="progress-bar"><div id="progress"></div></div>
+            </div>
+            <div id="fade-wrapper">
+                <h2 id="question-text">질문 내용</h2>
+                <div class="answer-buttons">
+                    <button id="btn-a" onclick="selectAnswer('A', this)">선택지 A</button>
+                    <button id="btn-b" onclick="selectAnswer('B', this)">선택지 B</button>
+                </div>
             </div>
         </section>
 
-        <section id="result-screen" style="display:none;">
-            <h2>당신의 보직은...</h2>
-            <h1 id="result-title">요원 유형</h1>
-            <p id="result-weapon">주력 무기: </p>
+        <section id="result-screen" style="display:none;" class="fade-in">
+            <p class="system-header">Verification Complete</p>
+            <p class="subtitle">분석 결과, 당신은</p>
+            <h1 id="result-title">퇴마사 유형</h1>
+            <div id="result-weapon">주력 영구(靈具): </div>
             <p id="result-desc">유형 설명</p>
-            <button onclick="location.reload()">다시 테스트하기</button>
+            <button class="btn-action" onclick="onon()">적성검사 완료</button>
         </section>
     </div>
+
     <script>
+        // 질문 및 결과 데이터 (동일)
         const questions = [
-    { q: "악령 출몰 제보를 받았다. 당신의 첫 행동은?", type: "EI", a: "동료를 모아 팀을 구성한다", b: "혼자 조용히 장비를 챙긴다" },
-    { q: "퇴마 현장에 구경꾼들이 몰려들기 시작했다.", type: "EI", a: "사람들을 직접 통제한다", b: "결계로 시선을 차단한다" },
-    { q: "고된 업무 뒤 당신의 휴식은?", type: "EI", a: "동료들과 맥주 한 잔", b: "조용히 집에서 혼자 휴식" },
-    { q: "악령의 정체를 파악할 때 믿는 것은?", type: "SN", a: "발자국 등 물리적 증거", b: "서늘한 기운과 직감" },
-    { q: "새 장비를 보급받았다. 당신은?", type: "SN", a: "설명서를 꼼꼼히 읽는다", b: "일단 만져보며 감을 잡는다" },
-    { q: "작전 중 예상치 못한 현상을 마주하면?", type: "SN", a: "보고서에 없던 일이라 당황", b: "흥미로운 새 패턴이라 생각" },
-    { q: "원한 깊은 악령을 마주했다.", type: "TF", a: "가차 없이 소멸시킨다", b: "사연을 들어보고 대화한다" },
-    { q: "동료가 실수로 자책하고 있다면?", type: "TF", a: "다음 보완책을 논의한다", b: "다치지 않아 다행이라 위로" },
-    { q: "당신이 생각하는 이상적인 퇴마는?", type: "TF", a: "피해 없는 효율적 처리", b: "영혼의 한을 풀어주는 성불" },
-    { q: "출발 전 당신의 퇴마 가방은?", type: "JP", a: "완벽히 정리된 부적과 도구", b: "필요할 때 찾는 잡동사니" },
-    { q: "목표지 상황이 예상과 다르다면?", type: "JP", a: "플랜 B를 즉시 가동", b: "현장 상황에 맞춰 즉흥 대응" },
-    { q: "보고서 마감 기한이 다가온다.", type: "JP", a: "이미 미리 써서 제출 완료", b: "벼락치기로 한 번에 해결" }
-];
+            { q: "악령 출몰 제보를 받았다. 당신의 첫 행동은?", type: "EI", a: "동료들을 소집해 합동 퇴마팀을 구성한다", b: "혼자 은밀하게 현장에 잠입해 동태를 살핀다" },
+            { q: "퇴마 도중 민간인 구경꾼들이 현장에 난입했다.", type: "EI", a: "직접 나서서 구역을 통제하고 대피시킨다", b: "은폐 결계를 쳐서 상황이 보이지 않게 차단한다" },
+            { q: "치열한 작전 후 당신이 선호하는 휴식은?", type: "EI", a: "동료 퇴마사들과 아지트에서 맥주 한 잔", b: "개인 정비실에서 홀로 도구를 닦으며 명상" },
+            { q: "악령의 정체를 분석할 때 더 신뢰하는 쪽은?", type: "SN", a: "현장에 남겨진 흔적과 과거의 퇴마 데이터", b: "공기 중의 서늘한 기운과 영적인 직감" },
+            { q: "새로운 오컬트 장비를 보급받았다. 당신은?", type: "SN", a: "사용 매뉴얼을 토씨 하나 틀리지 않게 정독한다", b: "일단 손에 쥐어보고 영력을 흘려보며 감을 잡는다" },
+            { q: "작전 중 예상치 못한 기이한 현상을 마주하면?", type: "SN", a: "기록된 프로토콜에 따라 차분하게 대응한다", b: "이 상황을 흥미로운 변수로 여기며 관찰한다" },
+            { q: "원한이 깊어 이성을 잃은 악령을 마주했다.", type: "TF", a: "가차 없이 프로토콜대로 소멸 처분한다", b: "사연을 들어보고 영혼을 달래 성불을 시도한다" },
+            { q: "동료가 퇴마 실패 후 크게 낙담하고 있다면?", type: "TF", a: "냉정하게 원인을 분석하고 다음 대책을 세운다", b: "부상이 없어 다행이라며 진심 어린 위로를 건넨다" },
+            { q: "당신이 추구하는 이상적인 퇴마의 형태는?", type: "TF", a: "피해를 최소화한 효율적이고 완벽한 제압", b: "원통한 영혼의 한을 풀어주는 자비로운 구원" },
+            { q: "출동 전, 당신의 전술 가방 상태는 어떠한가?", type: "JP", a: "부적과 도구가 종류별로 완벽히 정렬된 상태", b: "필요한 것을 즉석에서 찾아 쓰는 자유로운 상태" },
+            { q: "목표지의 상황이 예상과 180도 다르다면?", type: "JP", a: "준비해둔 예비 작전(Plan B)을 즉각 가동한다", b: "현장의 흐름에 몸을 맡기며 즉흥적으로 대응한다" },
+            { q: "활동 보고서 마감 기한이 코앞으로 다가왔다.", type: "JP", a: "이미 작전 종료 직후에 작성을 끝냈다", b: "마지막 순간에 몰입하여 한 번에 써 내려간다" }
+        ];
 
-const results = {
-    ISTJ: { title: "원칙주의 기록관", weapon: "은제 만년필", desc: "과거 사례를 분석해 완벽한 퇴마 절차를 설계합니다." },
-    ISFJ: { title: "성스러운 가디언", weapon: "축복받은 방패", desc: "동료들이 다치지 않게 뒤에서 결계를 치고 보호합니다." },
-    INFJ: { title: "신비로운 예언자", weapon: "수정 펜듈럼", desc: "악령의 다음 이동 경로를 본능적으로 감지합니다." },
-    INTJ: { title: "냉철한 설계자", weapon: "홀로그램 제어기", desc: "악령을 가둘 수 있는 거대한 함정과 시스템을 구축합니다." },
-    ISTP: { title: "병기 전문가", weapon: "영적 에너지 단검", desc: "고장 난 퇴마 도구도 현장에서 뚝딱 고쳐버립니다." },
-    ISFP: { title: "영혼의 예술가", weapon: "령(靈) 브러쉬", desc: "부적을 예술의 경지로 그려내어 영력을 극대화합니다." },
-    INFP: { title: "성불 대사", weapon: "오르골", desc: "가장 사악한 악령의 마음까지 어루만지는 공감 능력을 가졌습니다." },
-    INTP: { title: "심령학자", weapon: "주파수 스캐너", desc: "귀신의 파동과 주파수를 연구해 과학적으로 파괴합니다." },
-    ESTP: { title: "현장의 야생마", weapon: "성수 산탄총", desc: "몸이 먼저 나갑니다. 화끈한 액션으로 악령을 제압합니다." },
-    ESFP: { title: "화려한 엑소시스트", weapon: "발광하는 채찍", desc: "사람들의 시선을 끌며 화려한 퍼포먼스로 악령을 유인합니다." },
-    ENFP: { title: "낙천적인 영매", weapon: "영혼 통신용 무전기", desc: "귀신과 친구가 될 정도로 친화력이 뛰어납니다." },
-    ENTP: { title: "괴짜 발명가", weapon: "고전압 퇴마기", desc: "금기를 깨는 창의적인 퇴마 방식을 즐깁니다." },
-    ESTJ: { title: "철권 지휘관", weapon: "마력 확성기", desc: "일사불란하게 요원들을 배치해 현장을 장악합니다." },
-    ESFJ: { title: "팀 마스코트", weapon: "성유 향수", desc: "요원들의 멘탈을 관리하고 현장 민원을 해결합니다." },
-    ENFJ: { title: "빛의 인도자", weapon: "정화의 지팡이", desc: "모두의 사기를 북돋우며 악령에 맞설 용기를 줍니다." },
-    ENTJ: { title: "총괄 디렉터", weapon: "지휘용 레이저 포인터", desc: "블랙테일의 승리를 위해 거대한 작전판을 움직입니다." }
-};
+        const results = {
+            ISTJ: { title: "전통의 수호자", weapon: "은제 만년필", desc: "무고단의 기록을 계승해 오차 없는 퇴마 절차를 설계하는 기록관 유형입니다." },
+            ISFJ: { title: "자비로운 결계사", weapon: "축복받은 방패", desc: "동료들이 상처받지 않게 뒤에서 묵묵히 결계를 치고 보호하는 가디언입니다." },
+            INFJ: { title: "영적인 선지자", weapon: "수정 펜듈럼", desc: "악령의 비가시적인 이동 경로를 본능적으로 감지해 사고를 방지하는 예언자입니다." },
+            INTJ: { title: "냉철한 전략가", weapon: "데이터 제어 유닛", desc: "현장 전체를 거대한 함정으로 설계해 악령을 시스템 속에 가둬 소멸시킵니다." },
+            ISTP: { title: "기술직 퇴마사", weapon: "영적 에너지 단검", desc: "고장 난 영구도 현장에서 즉석 개조하여 작전을 성공시키는 무기 전문가입니다." },
+            ISFP: { title: "영혼의 화가", weapon: "영력 브러쉬", desc: "부적 한 장에도 예술적인 영력을 담아내 시각적으로 압도하는 힘을 발휘합니다." },
+            INFP: { title: "성불의 인도자", weapon: "정화의 오르골", desc: "가장 사악한 영혼의 마음까지 어루만지는 깊은 공감 능력을 지닌 구도자입니다." },
+            INTP: { title: "심령 분석가", weapon: "주파수 스캐너", desc: "귀신의 파동을 과학적으로 분석해 존재 자체를 무효화하는 효율적인 천재입니다." },
+            ESTP: { title: "현장의 파괴자", weapon: "성수 산탄총", desc: "주도윤 퇴마사처럼 몸이 먼저 나갑니다. 압도적인 액션으로 악령을 정면 돌파합니다." },
+            ESFP: { title: "광휘의 퇴마사", weapon: "발광하는 채찍", desc: "자신에게 시선을 집중시켜 악령을 유인하고 화려한 퍼포먼스로 현장을 장악합니다." },
+            ENFP: { title: "자유로운 영매", weapon: "영혼 통신 무전기", desc: "귀신조차 친구로 만드는 특유의 친화력으로 예상치 못한 변수를 만들어냅니다." },
+            ENTP: { title: "괴짜 술사", weapon: "고전압 퇴마 장치", desc: "금기시되는 퇴마 방식을 실험적으로 도입해 누구도 생각지 못한 해결책을 냅니다." },
+            ESTJ: { title: "철권 지휘관", weapon: "마력 확성기", desc: "현장을 일사불란하게 통제하며 요원들을 배치해 완벽한 승리를 쟁취합니다." },
+            ESFJ: { title: "팀의 마스코트", weapon: "성유 향수", desc: "요원들의 멘탈을 관리하고 현장의 민원까지 해결하는 블랙테일의 살림꾼입니다." },
+            ENFJ: { title: "빛의 지도자", weapon: "정화의 지팡이", desc: "동료들에게 용기를 불어넣으며 모두가 안전하게 귀환하도록 빛을 밝힙니다." },
+            ENTJ: { title: "총괄 디렉터", weapon: "레이저 포인터", desc: "블랙테일의 승리를 위해 거대한 작전판을 설계하고 요원들을 완벽하게 움직입니다." }
+        };
 
-let currentIdx = 0;
-let score = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+        let currentIdx = 0;
+        let score = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
 
-function startTest() {
-    document.getElementById('start-screen').style.display = 'none';
-    document.getElementById('question-screen').style.display = 'block';
-    showQuestion();
-}
+        function startTest() {
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('question-screen').style.display = 'block';
+            showQuestion();
+        }
 
-function showQuestion() {
-    const q = questions[currentIdx];
-    document.getElementById('question-text').innerText = q.q;
-    document.getElementById('answer-a').innerText = q.a;
-    document.getElementById('answer-b').innerText = q.b;
-    document.getElementById('progress').style.width = (currentIdx / questions.length) * 100 + "%";
-}
+        function showQuestion() {
+            const q = questions[currentIdx];
+            const wrapper = document.getElementById('fade-wrapper');
+            
+            // 모든 버튼의 선택 효과 제거 (초기화)
+            document.querySelectorAll('.answer-buttons button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
 
-function selectAnswer(choice) {
-    const type = questions[currentIdx].type;
-    const aType = type[0]; // E, S, T, J
-    const bType = type[1]; // I, N, F, P
+            wrapper.classList.remove('fade-in');
+            void wrapper.offsetWidth; 
+            wrapper.classList.add('fade-in');
 
-    if (choice === 'A') score[aType]++;
-    else score[bType]++;
+            document.getElementById('question-text').innerText = q.q;
+            document.getElementById('btn-a').innerText = q.a;
+            document.getElementById('btn-b').innerText = q.b;
+            
+            document.getElementById('progress').style.width = ((currentIdx) / questions.length) * 100 + "%";
+        }
 
-    currentIdx++;
-    if (currentIdx < questions.length) showQuestion();
-    else showResult();
-}
+        function selectAnswer(choice, btnElement) {
+            // [추가] 클릭된 버튼에 선택 상태 클래스 부여
+            btnElement.classList.add('selected');
 
-function showResult() {
-    document.getElementById('question-screen').style.display = 'none';
-    document.getElementById('result-screen').style.display = 'block';
+            const type = questions[currentIdx].type;
+            if (choice === 'A') score[type[0]]++;
+            else score[type[1]]++;
 
-    const mbti = 
-        (score.E >= score.I ? "E" : "I") +
-        (score.S >= score.N ? "S" : "N") +
-        (score.T >= score.F ? "T" : "F") +
-        (score.J >= score.P ? "J" : "P");
+            currentIdx++;
+            
+            // [추가] 0.3초 대기 후 다음 질문으로 (피드백 확인용)
+            setTimeout(() => {
+                if (currentIdx < questions.length) {
+                    showQuestion();
+                } else {
+                    showResult();
+                }
+            }, 300);
+        }
 
-    const result = results[mbti] || { title: "블랙테일 요원", weapon: "기본 장비", desc: "분석 중인 유형입니다." };
-    document.getElementById('result-title').innerText = result.title;
-    document.getElementById('result-weapon').innerText = "주력 무기: " + result.weapon;
-    document.getElementById('result-desc').innerText = result.desc;
-}
+        function showResult() {
+            document.getElementById('question-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+            document.getElementById('progress').style.width = "100%";
+
+            const mbti = 
+                (score.E >= score.I ? "E" : "I") +
+                (score.S >= score.N ? "S" : "N") +
+                (score.T >= score.F ? "T" : "F") +
+                (score.J >= score.P ? "J" : "P");
+
+            const result = results[mbti] || { title: "정예 퇴마사", weapon: "표준 퇴마 도구", desc: "당신은 블랙테일의 핵심 인재입니다." };
+            
+            document.getElementById('result-title').innerText = result.title;
+            document.getElementById('result-weapon').innerText = "주력 영구: " + result.weapon;
+            document.getElementById('result-desc').innerText = result.desc;
+        }
+
+        function onon() {
+            window.location.href = "tools.html";
+        }
     </script>
 </body>
 </html>

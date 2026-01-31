@@ -24,10 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. '계속하기' 버튼 클릭 시 처리
     submitBtn.addEventListener("click", () => {
         const nameInput = document.getElementById("userName");
-        const resumeSelect = document.getElementById("resumeSelect"); // [추가] 드롭다운
+        const resumeSelect = document.getElementById("resumeSelect");
+        const agreeCheck = document.getElementById("agreeCheck"); // [추가] 체크박스 요소 가져오기
 
         const name = nameInput.value;
-        const resumeType = resumeSelect.value; // [추가] 선택된 값 가져오기
+        const resumeType = resumeSelect.value;
 
         // 유효성 검사: 이름
         if (name.trim() === "") {
@@ -35,17 +36,23 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // [추가] 유효성 검사: 이력서 선택 여부
+        // 유효성 검사: 이력서 선택 여부
         if (resumeType === "") {
             alert("제출할 이력서 종류를 선택해주세요!");
             return;
         }
 
+        // [추가] 유효성 검사: 지원 동의 체크 여부
+        if (!agreeCheck.checked) {
+            alert("지원 동의 항목에 체크해주세요!");
+            return;
+        }
+
         // 데이터 저장 (세션 스토리지)
         sessionStorage.setItem("applyName", name);
-        sessionStorage.setItem("resumeType", resumeType); // [추가] 선택한 이력서 종류 저장
+        sessionStorage.setItem("resumeType", resumeType);
 
         // 페이지 이동
-        window.location.href = "test.html";
+        window.location.href = "complete.html";
     });
 });

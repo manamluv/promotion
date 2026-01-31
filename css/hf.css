@@ -1,0 +1,125 @@
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 56px;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: black;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+.logo-home {
+    display: block;
+    width: 100px;
+    height: auto;
+    margin-top: 10px;
+}
+
+.menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 101;
+    margin-top: 8px;
+}
+
+/* 햄버거 아이콘 */
+.hamburger {
+    position: relative;
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: #ffffff;
+    transition: all 0.3s;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #ffffff;
+    transition: all 0.3s;
+}
+
+.hamburger::before { top: -6px; }
+.hamburger::after { top: 6px; }
+
+.custom-footer {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 0 10px 0;
+}
+
+.footer-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.top-line {
+    border: 0;
+    border-top: 1px solid #555;
+    margin-bottom: 15px;
+}
+
+.upper-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.logo-box {
+    width: 80px;
+    height: 70px;
+}
+.logo-img {
+    width: 100%;
+    height: 90%;
+    object-fit: none;
+    margin-left: 40px;
+}
+
+.info-box {
+    text-align: left;
+}
+.info-box h2 {
+    /* margin: 0 0 10px 0; */
+    font-weight: bold;
+}
+.info-box p {
+    margin: 3px 0;
+    color: #ddd;
+}
+
+.bottom-area {
+    text-align: center;
+    width: 100%;
+}
+.copyright {
+    color: #666;
+    font-size: 9px;
+    margin: 0;
+}
+
+.footer-main-title{
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.footer-sub-text{
+    font-size: 9px;
+    letter-spacing: 1px;
+}
