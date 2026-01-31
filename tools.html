@@ -158,7 +158,30 @@
 
     <script>
         const savedName = sessionStorage.getItem("applyName");
-        document.getElementById("displayName").innerText = savedName;
+        const nameSpan = document.getElementById("displayName");
+
+        // 데이터가 있을 때만 표시, 없으면 '지원자'로 대체
+        if (savedName) {
+            nameSpan.innerText = savedName;
+        } else {
+            nameSpan.innerText = "지원자";
+        }
+
+        window.onload = function() {
+    const savedName = sessionStorage.getItem("applyName");
+    const nameSpan = document.getElementById("displayName");
+
+    if (savedName) {
+        // 1. 화면에 이름을 먼저 표시
+        nameSpan.innerText = savedName;
+        
+        // 2. 표시 직후 세션에서 데이터 즉시 삭제 (임무 종료)
+        sessionStorage.removeItem("applyName");
+        console.log("보안을 위해 요원 식별 데이터가 파기되었습니다.");
+    } else {
+        nameSpan.innerText = "지원자";
+    }
+};
     </script>
 </body>
 </html>

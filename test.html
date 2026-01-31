@@ -231,7 +231,14 @@
 
     <script>
         const savedName = sessionStorage.getItem("applyName");
-        document.getElementById("displayName").innerText = savedName;
+        const nameSpan = document.getElementById("displayName");
+
+        // 데이터가 있을 때만 표시, 없으면 '지원자'로 대체
+        if (savedName) {
+            nameSpan.innerText = savedName;
+        } else {
+            nameSpan.innerText = "지원자";
+        }
 
         // 질문 및 결과 데이터 (동일)
         const questions = [
