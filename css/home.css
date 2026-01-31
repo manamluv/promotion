@@ -1,44 +1,49 @@
-body{
+body {
     background-color: black;
     max-width: 480px;
     margin: 0 auto;
     min-height: 100vh;
+    position: relative; /* 안전장치로 추가 */
 }
 
 .container {
-    max-width: 80%;
+    /* position: relative가 있어야 자식인 logo-img가 이 박스를 기준으로 배치됩니다 */
+    position: relative; 
+    
+    width: 100%; /* max-width 80% 대신 100%를 쓰고 padding으로 조절하는 게 배치에 유리합니다 */
+    max-width: 100%;
     margin: 0 auto;
     padding: 0 20px;
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
+    height: 100vh; /* 세로 중앙 정렬을 위해 높이 지정 */
 }
 
 .logo-img {
-  display: block;
-  position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-  margin: 0 auto;
-  width: 50%;
-  height: auto;
-  animation: logo-shine 5s linear infinite;
-  filter:
-    brightness(0.95)
-    drop-shadow(0 0 6px rgba(255,255,255,0.5))
-    drop-shadow(0 0 14px rgba(255,255,255,0.35));
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    
+    /* 수정된 부분: 크기 조절 */
+    width: 70%; /* 모바일에서 잘 보이도록 비율을 늘림 (기존 50% -> 70~80% 추천) */
+    max-width: 300px; /* PC 화면에서 너무 커지지 않도록 픽셀로 제한 */
+    
+    height: auto;
+    animation: logo-shine 5s linear infinite;
+    filter: brightness(0.95) drop-shadow(0 0 6px rgba(255,255,255,0.5)) drop-shadow(0 0 14px rgba(255,255,255,0.35));
 }
 
+/* 애니메이션은 기존 그대로 유지 */
 @keyframes logo-shine {
-  0% {
-    filter:
-      brightness(0.9)
-      drop-shadow(0 0 0 rgba(255,255,255,0));
-  }
-
-  50% {
-    filter: brightness(1.25) drop-shadow(0 0 10px rgba(56, 31, 31, 0.8)) drop-shadow(0 0 22px rgba(54, 44, 44, 0.5)); 
-  }
-
-  100% {
-    filter: brightness(0.9) drop-shadow(0 0 0 rgba(44, 34, 34, 0));
-  }
+    0% {
+        filter: brightness(0.9) drop-shadow(0 0 0 rgba(255,255,255,0));
+    }
+    50% {
+        filter: brightness(1.25) drop-shadow(0 0 10px rgba(56, 31, 31, 0.8)) drop-shadow(0 0 22px rgba(54, 44, 44, 0.5)); 
+    }
+    100% {
+        filter: brightness(0.9) drop-shadow(0 0 0 rgba(44, 34, 34, 0));
+    }
 }
