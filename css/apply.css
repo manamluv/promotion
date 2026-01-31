@@ -1,6 +1,3 @@
-/* =========================================
-   1. Fonts & Global Reset
-   ========================================= */
 @font-face {
     font-family: 'Age2g';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2601-6@1.0/에이투지체-4Regular.woff2') format('woff2');
@@ -22,34 +19,33 @@
 
 html, body {
     width: 100%;
-    height: 100dvh;
-    max-width: 480px;
-    min-height: 100vh;
+    height: 100dvh; 
     margin: 0 auto;
     padding: 0;
-    overflow: hidden;
+    overflow: hidden; 
     background-color: #000;
 }
 
 body {
     display: flex;
     flex-direction: column;
-    padding-top: 40px;
+    padding-top: 56px; 
+    position: relative;
 }
 
-/* =========================================
-   2. Layout & Main Container
-   ========================================= */
 .main-container {
-    flex: 1;
+    flex: 1; 
+    overflow-y: auto; 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; 
     align-items: center;
+    
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 20px 16px;
+    min-height: 0; 
 }
 
 .main-container > div {
@@ -59,44 +55,47 @@ body {
 
 .main-container h2 {
     color: #fff;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
     font-family: 'Age2g';
     text-align: center;
+    flex-shrink: 0;
 }
 
-/* Separators */
 main hr {
     background: #700915;
     height: 2px;
     border: 0;
     width: 100%;
+    flex-shrink: 0;
 }
 
-.hr1 { margin-bottom: 10px; }
+.hr1 { margin-bottom: 20px; }
 .hr2 { display: none; }
 
-/* Footer Wrapper */
+
 footer.custom-footer {
-    flex-shrink: 0;
+    flex-shrink: 0; 
     width: 100%;
     z-index: 10;
+    background-color: #000;
 }
 
-/* =========================================
-   3. Job Summary Card
-   ========================================= */
 .job-summary-card {
     border: 1px solid #e1e1e1;
     border-radius: 12px;
-    padding: 30px;
+    padding: 25px;
     background-color: #f1f1f1;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 
 .summary-item {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     background-color: transparent;
 }
 
@@ -104,7 +103,7 @@ footer.custom-footer {
     display: block;
     font-size: 14px;
     color: #525252;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
 .summary-item .value {
@@ -117,11 +116,11 @@ footer.custom-footer {
 .small-gong {
     color: #686767;
     font-size: 13px;
+    margin-top: 15px;
 }
 
-/* Apply Button */
 .btn-group {
-    margin-top: 30px;
+    margin-top: 25px;
 }
 
 .btn-apply {
@@ -141,9 +140,6 @@ footer.custom-footer {
     background-color: #333;
 }
 
-/* =========================================
-   4. Modal System
-   ========================================= */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -186,7 +182,6 @@ footer.custom-footer {
 
 .close-area:hover { opacity: 1; }
 
-/* Modal Header */
 .minimal-header {
     margin-bottom: 40px;
     margin-top: 10px;
@@ -212,7 +207,6 @@ footer.custom-footer {
     border: 1px solid #700915;
 }
 
-/* Steps Indicator */
 .step-container {
     display: flex;
     justify-content: center;
@@ -224,13 +218,11 @@ footer.custom-footer {
 .step.active { color: #700915; }
 .step.complete { color: #888; }
 
-/* Modal Body */
 .minimal-body { margin-bottom: 30px; }
 .minimal-body p { color: #d6d5d5; }
 .minimal-body span { color: #700915; }
 .small-gong2 { color: #999797 !important; font-size: 12px; }
 
-/* Inputs */
 .input-container {
     margin-bottom: 25px;
     position: relative;
@@ -259,7 +251,6 @@ footer.custom-footer {
     cursor: default;
 }
 
-/* Custom Select */
 select.underline-input {
     cursor: pointer;
     appearance: none;
@@ -274,7 +265,6 @@ select.underline-input option {
     padding: 10px;
 }
 
-/* Custom Checkbox */
 .agree-container {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -313,7 +303,6 @@ input[type="checkbox"]#agreeCheck:checked + label::before {
     background-repeat: no-repeat;
 }
 
-/* Submit Button */
 .btn-minimal-submit {
     width: 100%;
     padding: 15px;
@@ -327,9 +316,6 @@ input[type="checkbox"]#agreeCheck:checked + label::before {
     border-radius: 4px;
 }
 
-/* =========================================
-   5. Media Queries
-   ========================================= */
 @media (max-width: 600px) {
     .modal-overlay {
         padding: 0 !important;
@@ -350,5 +336,28 @@ input[type="checkbox"]#agreeCheck:checked + label::before {
     .close-area {
         top: 15px;
         right: 15px;
+    }
+}
+
+@media (max-height: 750px) {
+    .main-container {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        justify-content: center;
+    }
+
+    .job-summary-card {
+        padding: 20px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+
+    .summary-item { margin-bottom: 8px; }
+    .btn-group { margin-top: 20px; }
+    .btn-apply { padding: 12px; }
+    
+    .main-container h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
     }
 }
