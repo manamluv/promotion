@@ -1,7 +1,3 @@
-/* =========================================
-   0. 폰트
-   ========================================= */
-
 @font-face {
     font-family: 'Age2g';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2601-6@1.0/에이투지체-4Regular.woff2') format('woff2');
@@ -16,9 +12,6 @@
     font-display: swap;
 }
 
-/* =========================================
-   1. 메인 레이아웃 & 공통 스타일 (수정됨)
-   ========================================= */
 * {
     font-family: 'Suit', sans-serif;
     box-sizing: border-box; 
@@ -28,8 +21,9 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100vh; /* 화면 높이 100% 고정 */
-    overflow: hidden; /* 스크롤바 제거 */
+    /* height: 100vh; */
+    height: 100dvh;
+    overflow: hidden;
     background-color: #000;
 }
 
