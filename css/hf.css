@@ -1,3 +1,9 @@
+body {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
 .header {
     position: fixed;
     top: 0;
@@ -31,7 +37,6 @@
     margin-top: 8px;
 }
 
-/* 햄버거 아이콘 */
 .hamburger {
     position: relative;
     display: block;
@@ -95,7 +100,6 @@
     text-align: left;
 }
 .info-box h2 {
-    /* margin: 0 0 10px 0; */
     font-weight: bold;
 }
 .info-box p {

@@ -1,6 +1,10 @@
 body{
     background-color: black;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
 }
+
 .container {
     max-width: 80%;
     margin: 0 auto;
